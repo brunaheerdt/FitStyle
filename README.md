@@ -8,25 +8,25 @@ A community-driven platform for Brazilian fitness fashion enthusiasts in Ireland
 - Browse authentic Brazilian fitness wear from trusted brands like DLK Modas
 - High-quality product images and detailed descriptions
 - Filter by brand, size, color, and price
-- Product interest registration system
+- Product reservation system with comment count display
 
 ### 💬 Community Engagement
 - **Nested Comments System** - Up to 3 levels of threaded discussions
 - User authentication and profile management
 - Product reviews and community feedback
-- Real-time interest notifications
+- Real-time reservation notifications
 
 ### 🔐 User Management
 - Secure user registration and authentication
 - Role-based access control (Users and Admins)
-- Personal profile with interest history
+- Personal profile with reservation history
 - Admin panel for content moderation
 
 ### 🎛️ Admin Features
 - Product management (CRUD operations)
 - User management and role assignment
 - Comment moderation system
-- Interest registration tracking
+- Reservation tracking
 - Comprehensive admin dashboard
 
 ## 🚀 Technology Stack
@@ -49,7 +49,7 @@ A community-driven platform for Brazilian fitness fashion enthusiasts in Ireland
 - **Users**: Authentication and profile management
 - **Products**: Brazilian fitness wear catalog
 - **Comments**: Nested comment system with 3-level threading
-- **Reservations**: Interest registration tracking
+- **Reservations**: Product reservation tracking
 
 ## 📦 Installation & Setup
 
@@ -93,14 +93,14 @@ The application will be available at: `http://localhost:3000`
 2. **View Details**: Click on any product to see full details, images, and community comments
 3. **Register/Login**: Create an account to participate in discussions and register interest
 4. **Comment & Reply**: Join conversations with up to 3 levels of nested replies
-5. **Register Interest**: Express interest in products to be contacted by sellers
+5. **Make Reservations**: Reserve products to be contacted by sellers
 
 ### For Admins
 1. **Access Admin Panel**: Login with admin credentials and navigate to `/admin`
 2. **Manage Products**: Add, edit, or remove products from the catalog
 3. **Moderate Comments**: Approve, reject, or flag user comments
 4. **Manage Users**: View user statistics, change roles, activate/deactivate accounts
-5. **Track Interests**: Monitor customer interest registrations and update statuses
+5. **Track Reservations**: Monitor customer reservations and update statuses
 
 ### Default Admin Account
 - **Email**: `admin@fitstyle.com`
@@ -121,7 +121,7 @@ fitstyle/
 │   │   ├── auth.js       # Authentication routes
 │   │   ├── products.js   # Product management routes
 │   │   ├── comments.js   # Comment system routes
-│   │   └── reservations.js # Interest registration routes
+│   │   └── reservations.js # Product reservation routes
 │   ├── middleware/       # Express middleware
 │   │   └── auth.js       # JWT authentication middleware
 │   └── server.js         # Main server file
@@ -211,7 +211,7 @@ If you need to modify the database schema:
 - `DELETE /api/comments/:id` - Delete comment
 
 ### Reservations
-- `POST /api/reservations` - Register interest in product
+- `POST /api/reservations` - Make product reservation
 - `GET /api/reservations` - Get user's registrations
 - `GET /api/reservations/all` - Get all registrations (Admin only)
 
@@ -232,7 +232,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - [ ] Payment integration for direct purchases
 - [ ] WhatsApp integration for seller contact
 - [ ] Image upload for user-generated content
-- [ ] Email notifications for interests
+- [ ] Email notifications for reservations
 - [ ] Advanced search and filtering
 - [ ] Wishlist functionality
 - [ ] Social media integration

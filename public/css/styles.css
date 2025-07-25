@@ -567,12 +567,12 @@ footer {
     background-color: #2980b9;
 }
 
-.interest-btn {
+.reservation-btn {
     background-color: #2ecc71 !important;
     color: white !important;
 }
 
-.interest-btn:hover {
+.reservation-btn:hover {
     background-color: #27ae60 !important;
 }
 
@@ -701,12 +701,12 @@ footer {
     transition: background-color 0.3s;
 }
 
-.modal-actions .interest-btn {
+.modal-actions .reservation-btn {
     background-color: #2ecc71;
     color: white;
 }
 
-.modal-actions .interest-btn:hover {
+.modal-actions .reservation-btn:hover {
     background-color: #27ae60;
 }
 
@@ -1142,7 +1142,7 @@ footer {
     text-align: center;
 }
 
-.interest-btn {
+.reservation-btn {
     background-color: #2ecc71;
     color: white;
     border: none;
@@ -1156,7 +1156,7 @@ footer {
     letter-spacing: 0.5px;
 }
 
-.interest-btn:hover {
+.reservation-btn:hover {
     background-color: #27ae60;
 }
 
@@ -1420,7 +1420,7 @@ footer {
     background-color: #d35400;
 }
 
-/* Interest Modal Form */
+/* Reservation Modal Form */
 .modal-content .form-group {
     margin-bottom: 1rem;
 }
@@ -1466,7 +1466,7 @@ footer {
     margin-top: 1.5rem;
 }
 
-.modal-content .submit-interest-btn {
+.modal-content .submit-reservation-btn {
     background-color: #2ecc71;
     color: white;
     border: none;
@@ -1478,7 +1478,7 @@ footer {
     transition: background-color 0.3s;
 }
 
-.modal-content .submit-interest-btn:hover {
+.modal-content .submit-reservation-btn:hover {
     background-color: #27ae60;
 }
 

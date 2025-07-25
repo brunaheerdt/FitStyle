@@ -1,7 +1,7 @@
 <div class="modal-content">
-    <h3>Register Interest</h3>
-    <p>Let us know you're interested in this product and we'll get in touch!</p>
-    <form id="interest-form">
+    <h3>Make Reservation</h3>
+    <p>Reserve this product and we'll get in touch with you!</p>
+    <form id="reservation-form">
         <div class="form-group">
             <label for="contact_email">Email Address:</label>
             <input type="email" id="contact_email" name="contact_email" value="{{userEmail}}" required>
@@ -15,7 +15,7 @@
             <textarea id="notes" name="notes" placeholder="Any specific questions or requirements?"></textarea>
         </div>
         <div class="modal-actions">
-            <button type="submit" class="submit-interest-btn">Register Interest</button>
+            <button type="submit" class="submit-reservation-btn">Make Reservation</button>
             <button type="button" class="cancel-btn" onclick="this.closest('.modal').remove()">Cancel</button>
         </div>
     </form>

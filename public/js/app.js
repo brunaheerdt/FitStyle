@@ -359,7 +359,7 @@ class FitStyleApp {
         const html = await templateManager.render('product-details-page', {
             ...product,
             comments: comments,
-            showInterestBtn: !!this.currentUser,
+            showReservationBtn: !!this.currentUser,
             showCommentForm: !!this.currentUser,
             showReplyBtn: !!this.currentUser
         });
@@ -497,7 +497,7 @@ class FitStyleApp {
         }
     }
 
-    async showInterestForm(productId) {
+    async showReservationForm(productId) {
         const modal = document.createElement('div');
         modal.className = 'modal';
         
@@ -513,16 +513,16 @@ class FitStyleApp {
             }
         });
 
-        const form = modal.querySelector('#interest-form');
+        const form = modal.querySelector('#reservation-form');
         form.addEventListener('submit', (e) => {
             e.preventDefault();
-            this.submitInterest(productId, form, modal);
+            this.submitReservation(productId, form, modal);
         });
     }
 
-    async submitInterest(productId, form, modal) {
+    async submitReservation(productId, form, modal) {
         const formData = new FormData(form);
-        const interestData = {
+        const reservationData = {
             product_id: productId,
             contact_email: formData.get('contact_email'),
             contact_phone: formData.get('contact_phone'),
@@ -536,7 +536,7 @@ class FitStyleApp {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${this.authToken}`
                 },
-                body: JSON.stringify(interestData)
+                body: JSON.stringify(reservationData)
             });
 
             const data = await response.json();
@@ -545,10 +545,10 @@ class FitStyleApp {
                 this.showMessage(data.message, 'success');
                 modal.remove();
             } else {
-                this.showMessage(data.error || 'Failed to register interest', 'error');
+                this.showMessage(data.error || 'Failed to make reservation', 'error');
             }
         } catch (error) {
-            this.showMessage('Error registering interest', 'error');
+            this.showMessage('Error making reservation', 'error');
         }
     }
 
@@ -620,9 +620,9 @@ class FitStyleApp {
                         </div>
                         
                         <div class="profile-card">
-                            <h3>My Interest Registrations</h3>
+                            <h3>My Reservations</h3>
                             ${reservations.length === 0 ?
-                    '<p>You haven\'t registered interest in any products yet.</p>' :
+                    '<p>You haven\'t made any reservations yet.</p>' :
                     `<div class="reservations-list">
                                     ${reservations.map(reservation => `
                                         <div class="reservation-item">

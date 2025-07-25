@@ -31,7 +31,7 @@ router.post('/', authenticateToken, async (req, res) => {
         });
         
         res.status(201).json({
-            message: 'Interest registered successfully! The owner will contact you soon.',
+            message: 'Reservation made successfully! The owner will contact you soon.',
             reservation: newReservation
         });
     } catch (error) {
