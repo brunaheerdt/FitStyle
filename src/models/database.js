@@ -24,7 +24,7 @@ function initializeTables() {
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
         )`,
 
-        `DROP TABLE IF EXISTS products; CREATE TABLE IF NOT EXISTS products (
+        `CREATE TABLE IF NOT EXISTS products (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             description TEXT NOT NULL,
