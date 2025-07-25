@@ -1,0 +1,22 @@
+<div class="modal-content">
+    <h3>Register Interest</h3>
+    <p>Let us know you're interested in this product and we'll get in touch!</p>
+    <form id="interest-form">
+        <div class="form-group">
+            <label for="contact_email">Email Address:</label>
+            <input type="email" id="contact_email" name="contact_email" value="{{userEmail}}" required>
+        </div>
+        <div class="form-group">
+            <label for="contact_phone">Phone Number (optional):</label>
+            <input type="tel" id="contact_phone" name="contact_phone" placeholder="Your phone number">
+        </div>
+        <div class="form-group">
+            <label for="notes">Additional Notes:</label>
+            <textarea id="notes" name="notes" placeholder="Any specific questions or requirements?"></textarea>
+        </div>
+        <div class="modal-actions">
+            <button type="submit" class="submit-interest-btn">Register Interest</button>
+            <button type="button" class="cancel-btn" onclick="this.closest('.modal').remove()">Cancel</button>
+        </div>
+    </form>
+</div>

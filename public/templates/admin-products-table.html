@@ -1,0 +1,31 @@
+<table class="admin-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Brand</th>
+            <th>Price</th>
+            <th>Size</th>
+            <th>Color</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each products}}
+            <tr>
+                <td>{{name}}</td>
+                <td>{{brand}}</td>
+                <td>{{#if price}}{{price}}{{else}}N/A{{/if}}</td>
+                <td>{{#if size}}{{size}}{{else}}N/A{{/if}}</td>
+                <td>{{#if color}}{{color}}{{else}}N/A{{/if}}</td>
+                <td class="actions">
+                    <button onclick="app.editProduct({{id}})" class="btn-edit">Edit</button>
+                    <button onclick="app.deleteProduct({{id}})" class="btn-delete">Delete</button>
+                </td>
+            </tr>
+        {{else}}
+            <tr>
+                <td colspan="6" style="text-align: center;">No products found.</td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>

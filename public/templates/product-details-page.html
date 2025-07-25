@@ -1,0 +1,79 @@
+<section class="product-details-page">
+    <div class="product-header">
+        <button onclick="app.navigateTo('/products')" class="back-btn">← Back to Products</button>
+    </div>
+    
+    <div class="product-main">
+        <div class="product-image">
+            {{#if image_url}}
+                <img src="{{image_url}}" alt="{{name}}" class="product-photo">
+            {{else}}
+                <div class="product-placeholder">
+                    <span>No Image Available</span>
+                </div>
+            {{/if}}
+        </div>
+        
+        <div class="product-info">
+            <h1 class="product-title">{{name}}</h1>
+            {{#if price}}<div class="product-price">{{price}}</div>{{/if}}
+            
+            <div class="product-details">
+                <div class="detail-item">
+                    <span class="detail-label">Brand:</span>
+                    <span class="detail-value">{{brand}}</span>
+                </div>
+                {{#if size}}
+                    <div class="detail-item">
+                        <span class="detail-label">Size:</span>
+                        <span class="detail-value">{{size}}</span>
+                    </div>
+                {{/if}}
+                {{#if color}}
+                    <div class="detail-item">
+                        <span class="detail-label">Color:</span>
+                        <span class="detail-value">{{color}}</span>
+                    </div>
+                {{/if}}
+            </div>
+            
+            <div class="product-description">
+                <h3>Description</h3>
+                <p>{{description}}</p>
+            </div>
+            
+            <div class="product-actions">
+                {{#if showInterestBtn}}
+                    <button onclick="app.showInterestForm({{id}})" class="interest-btn">Register Interest</button>
+                {{else}}
+                    <p class="login-notice">Please login to register interest.</p>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+    
+    <div class="comments-section">
+        <h2>Comments</h2>
+        <div id="comments-list">
+            {{#if comments.length}}
+                {{#each comments}}
+                    {{> comment-item}}
+                {{/each}}
+            {{else}}
+                <p class="no-comments">No comments yet. Be the first to share your thoughts!</p>
+            {{/if}}
+        </div>
+        
+        {{#if showCommentForm}}
+            <div class="comment-form-section">
+                <h3>Add a Comment</h3>
+                <form id="comment-form">
+                    <textarea name="content" placeholder="Share your thoughts about this product..." required></textarea>
+                    <button type="submit" class="submit-comment-btn">Post Comment</button>
+                </form>
+            </div>
+        {{else}}
+            <p class="login-notice">Please login to add comments.</p>
+        {{/if}}
+    </div>
+</section>

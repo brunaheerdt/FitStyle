@@ -1,0 +1,28 @@
+<div class="comment level-{{level}}" data-comment-id="{{id}}">
+    <div class="comment-header">
+        <strong class="comment-author">{{username}}</strong>
+        <small class="comment-date">{{formatDate created_at}}</small>
+    </div>
+    <div class="comment-content">
+        <p>{{content}}</p>
+    </div>
+    <div class="comment-actions">
+        {{#if (and showReplyBtn (lt level 2))}}
+            <button class="reply-btn" onclick="app.showReplyForm({{id}}, {{level}})">Reply</button>
+        {{/if}}
+    </div>
+    
+    <!-- Reply form placeholder (hidden by default) -->
+    <div class="reply-form-container" id="reply-form-{{id}}" style="display: none;">
+        <!-- Reply form will be inserted here -->
+    </div>
+    
+    <!-- Nested replies -->
+    {{#if replies.length}}
+        <div class="comment-replies">
+            {{#each replies}}
+                {{> comment-item}}
+            {{/each}}
+        </div>
+    {{/if}}
+</div>

@@ -1,0 +1,9 @@
+<div class="reply-form">
+    <form class="comment-reply-form" data-parent-id="{{parentId}}">
+        <textarea name="content" placeholder="Write a reply..." required rows="3"></textarea>
+        <div class="reply-form-actions">
+            <button type="submit" class="submit-reply-btn">Post Reply</button>
+            <button type="button" class="cancel-reply-btn" onclick="app.hideReplyForm({{parentId}})">Cancel</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,24 @@
+<div class="product-card">
+    <div class="product-card-image">
+        {{#if image_url}}
+            <img src="{{image_url}}" alt="{{name}}" class="product-card-photo">
+        {{else}}
+            <div class="product-card-placeholder">
+                <span>No Image</span>
+            </div>
+        {{/if}}
+    </div>
+    <div class="product-card-content">
+        <h4>{{name}}</h4>
+        <p class="product-description">{{truncate description 80}}</p>
+        <p class="product-brand"><strong>{{brand}}</strong></p>
+        {{#if price}}<p class="product-price">{{price}}</p>{{/if}}
+        <div class="product-details-row">
+            {{#if size}}<span class="detail-tag">{{size}}</span>{{/if}}
+            {{#if color}}<span class="detail-tag">{{color}}</span>{{/if}}
+        </div>
+        <div class="product-actions">
+            <button onclick="app.viewProduct({{id}})" class="view-details-btn">View Details</button>
+        </div>
+    </div>
+</div>
