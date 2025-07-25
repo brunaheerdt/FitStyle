@@ -24,7 +24,7 @@ function initializeTables() {
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
         )`,
 
-        `CREATE TABLE IF NOT EXISTS products (
+        `DROP TABLE IF EXISTS products; CREATE TABLE IF NOT EXISTS products (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             description TEXT NOT NULL,
@@ -42,6 +42,8 @@ function initializeTables() {
             user_id INTEGER NOT NULL,
             content TEXT NOT NULL,
             status TEXT NOT NULL DEFAULT 'pending',
+            parent_id INTEGER DEFAULT NULL REFERENCES comments(id) ON DELETE CASCADE,
+            level INTEGER DEFAULT 0,
             moderation_reason TEXT NULLABLE,
             moderated_at DATETIME DEFAULT NULL,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -85,33 +87,114 @@ function insertSampleData() {
 
         if (row.count === 0) {
             const sampleProducts = [
-                {
-                    name: "Brazilian Activewear Top",
-                    description: "Stylish Brazilian fitness top with vibrant colors and comfortable fit",
-                    brand: "Fitness Brasil",
-                    image_url: "/images/sample-top.jpg",
-                    price: "€35",
-                    size: "M",
-                    color: "Tropical Green"
-                },
-                {
-                    name: "Rio Beach Leggings",
-                    description: "High-waisted leggings inspired by Rio's beach culture",
-                    brand: "Rio Active",
-                    image_url: "/images/sample-leggings.jpg",
-                    price: "€45",
-                    size: "S",
-                    color: "Ocean Blue"
-                },
-                {
-                    name: "Capoeira Movement Shorts",
-                    description: "Flexible shorts designed for capoeira and fitness movements",
-                    brand: "Movimento",
-                    image_url: "/images/sample-shorts.jpg",
-                    price: "€30",
-                    size: "L",
-                    color: "Sunset Orange"
-                }
+                    {
+                        "name": "Top Fitness Feminino Preto com Bojo Aura",
+                        "description": "Top fitness preto com sustentação, ideal para treinos intensos. Confeccionado com tecido de alta performance e tecnologia dry-fit.",
+                        "brand": "DLK Modas",
+                        "image_url": "https://dlkmodas.fbitsstatic.net/img/p/top-fitness-feminino-preto-com-bojo-aura-dlk-84314/311347.jpg?w=1000&h=1428&v=202506301526",
+                        "price": "R$ 55,79",
+                        "size": "P/M/G",
+                        "color": "Preto",
+                    },
+                    {
+                        "name": "Bermuda de Treino Feminina com Bolsos",
+                        "description": "Bermuda de treino preta com bolsos laterais, perfeita para academia e atividades ao ar livre. Tecido respirável e confortável.",
+                        "brand": "DLK Modas",
+                        "image_url": "https://dlkmodas.fbitsstatic.net/img/p/bermuda-de-treino-feminina-preta-com-bolsos-basica-dlk-84529/312186.jpg?w=1000&h=1428&v=202506021156",
+                        "price": "R$ 86,39",
+                        "size": "P/M/G/GG",
+                        "color": "Preto",
+                    },
+                    {
+                        "name": "Macaquinho Fitness com Zíper e Recortes Aura",
+                        "description": "Macaquinho fitness preto moderno com zíper frontal e recortes estratégicos. Peça versátil para treinos e uso casual.",
+                        "brand": "DLK Modas",
+                        "image_url": "https://dlkmodas.fbitsstatic.net/img/p/macaquinho-fitness-feminino-preto-com-ziper-e-recortes-aura-dlk-84528/312180.jpg?w=1000&h=1428&v=202505261400",
+                        "price": "R$ 129,59",
+                        "size": "P/M/G",
+                        "color": "Preto",
+                    },
+                    {
+                        "name": "Legging Seamless+ Feminina Energy",
+                        "description": "Legging sem costura com tecnologia energy, proporcionando máximo conforto e liberdade de movimento. Cintura alta modeladora.",
+                        "brand": "DLK Modas",
+                        "image_url": "https://dlkmodas.fbitsstatic.net/img/p/calca-legging-happiness-com-elastico-lateral-grafite-dlk-79495/293681.jpg?w=1000&h=1428&v=202501231555",
+                        "price": "R$ 98,50",
+                        "size": "P/M/G/GG",
+                        "color": "Verde Militar",
+                    },
+                    {
+                        "name": "Top fitness feminino terracota com decote v transpassado lush dlk",
+                        "description": "Top cropped com estampa tropical brasileira, ideal para yoga e pilates. Tecido macio e elástico com proteção UV.",
+                        "brand": "DLK Modas",
+                        "image_url": "https://dlkmodas.fbitsstatic.net/img/p/top-fitness-feminino-terracota-com-decote-v-transpassado-lush-dlk-84544/312242.jpg?w=1000&h=1428&v=202507210916",
+                        "price": "R$ 42,90",
+                        "size": "P/M/G",
+                        "color": "Estampado Tropical",
+                    },
+                    {
+                        "name": "Conjunto Fitness Feminino Crossfit",
+                        "description": "Conjunto completo para crossfit com top de alta sustentação e legging compressora. Performance e estilo em uma peça só.",
+                        "brand": "DLK Modas",
+                        "image_url": "https://dlkmodas.fbitsstatic.net/img/p/short-fitness-feminino-preto-com-recorte-canelado-seamless-dlk-83020/306738.jpg?w=1000&h=1428&v=no-value",
+                        "price": "R$ 156,80",
+                        "size": "P/M/G",
+                        "color": "Preto",
+                    },
+                    {
+                        "name": "Cropped regata feminino off white canelado lush dlk",
+                        "description": "Regata fitness com tecnologia dry-fit, tecido que absorve o suor e seca rapidamente. Ideal para corrida e academia.",
+                        "brand": "DLK Modas",
+                        "image_url": "https://dlkmodas.fbitsstatic.net/img/p/cropped-regata-feminino-off-white-canelado-lush-dlk-84311/311334.jpg?w=1000&h=1428&v=202504031528",
+                        "price": "R$ 38,70",
+                        "size": "P/M/G/GG",
+                        "color": "White",
+                    },
+                    {
+                        "name": "Calça Legging Fitness Cintura Alta",
+                        "description": "Legging de cintura alta modeladora com compressão gradual. Tecido premium com proteção UV e toque aveludado.",
+                        "brand": "DLK Modas",
+                        "image_url": "https://dlkmodas.fbitsstatic.net/img/p/calca-legging-happiness-basica-com-brilho-cereja-dlk-79370/293254.jpg?w=1000&h=1428&v=202504231634",
+                        "price": "R$ 112,40",
+                        "size": "P/M/G/GG",
+                        "color": "Vinho",
+                    },
+                    {
+                        "name": "Short Saia Fitness Feminino",
+                        "description": "Short saia fitness com shorts interno, perfeito para tênis e atividades esportivas. Design moderno e feminino.",
+                        "brand": "DLK Modas",
+                        "image_url": "https://dlkmodas.fbitsstatic.net/img/p/short-saia-feminino-preto-com-recortes-em-tela-harmony-dlk-83803/309400.jpg?w=1000&h=1428&v=202501231555",
+                        "price": "R$ 67,90",
+                        "size": "P/M/G",
+                        "color": "Preto com detalhes brancos",
+                    },
+                    {
+                        "name": "Top Fitness Feminino Longline Aura",
+                        "description": "Top longline com sustentação média, ideal para yoga e pilates. Acabamento sem costura e tecnologia antibacteriana.",
+                        "brand": "DLK Modas",
+                        "image_url": "https://dlkmodas.fbitsstatic.net/img/p/top-fitness-feminino-nude-com-franzido-lush-dlk-84540/312226.jpg?w=1000&h=1428&v=202506120958",
+                        "price": "R$ 71,25",
+                        "size": "P/M/G",
+                        "color": "Nude",
+                    },
+                    {
+                        "name": "Bermuda Ciclista Fitness Básica",
+                        "description": "Bermuda ciclista básica de alta compressão, ideal para musculação e treinos funcionais. Não marca e não enrola.",
+                        "brand": "DLK Modas",
+                        "image_url": "https://dlkmodas.fbitsstatic.net/img/p/bermuda-modelo-ciclista-happiness-com-bolso-preta-e-prata-dlk-79514/293753.jpg?w=1000&h=1428&v=no-value",
+                        "price": "R$ 53,60",
+                        "size": "P/M/G/GG",
+                        "color": "Grafite",
+                    },
+                    {
+                        "name": "Body Fitness Feminino Energy",
+                        "description": "Body fitness com recortes estratégicos e tule nas laterais. Peça sofisticada para aulas de dança e zumba.",
+                        "brand": "DLK Modas",
+                        "image_url": "https://dlkmodas.fbitsstatic.net/img/p/body-fitness-feminino-preto-manga-longa-com-ziper-harmony-dlk-83786/309340.jpg?w=1000&h=1428&v=202501231555",
+                        "price": "R$ 143,20",
+                        "size": "P/M/G",
+                        "color": "Preto com tule",
+                    }
             ];
 
             const insertProduct = db.prepare(`

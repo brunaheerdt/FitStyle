@@ -18,7 +18,7 @@
             {{#if color}}<span class="detail-tag">{{color}}</span>{{/if}}
         </div>
         <div class="product-actions">
-            <button onclick="app.viewProduct({{id}})" class="view-details-btn">View Details</button>
+            <button data-navigate="/product/{{id}}" class="view-details-btn">View Details</button>
         </div>
     </div>
 </div>

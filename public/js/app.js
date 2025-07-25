@@ -7,6 +7,7 @@ class FitStyleApp {
         this.routes = {
             '/': () => this.showProducts(),
             '/products': () => this.showProducts(),
+            '/about': () => this.showAbout(),
             '/profile': () => this.showProfile(),
             '/admin': () => this.showAdminPanel(),
             '/admin/products': () => this.showAdminPanel('products'),
@@ -97,7 +98,7 @@ class FitStyleApp {
                 this.showAdminPanel(adminTab);
             } else if (path.startsWith('/product/')) {
                 const productId = path.split('/')[2];
-                this.viewProduct(productId);
+                await this.loadAndShowProduct(productId);
             } else {
                 // Default to products page
                 this.navigateTo('/products', true);
@@ -126,7 +127,9 @@ class FitStyleApp {
         const baseTitle = 'FitStyle - Brazilian Fitness Fashion';
         let title = baseTitle;
         
-        if (path === '/profile') {
+        if (path === '/about') {
+            title = 'About Us - FitStyle';
+        } else if (path === '/profile') {
             title = 'My Profile - FitStyle';
         } else if (path.startsWith('/admin')) {
             const section = path.split('/')[2];
@@ -319,8 +322,11 @@ class FitStyleApp {
     }
 
     async viewProduct(productId) {
-        this.updateURL(`/product/${productId}`);
-        
+        // Use navigateTo to properly add to browser history
+        await this.navigateTo(`/product/${productId}`);
+    }
+
+    async loadAndShowProduct(productId) {
         try {
             const response = await fetch(`/api/products/${productId}`);
             if (response.ok) {
@@ -328,9 +334,13 @@ class FitStyleApp {
                 this.showProductDetails(product);
             } else {
                 this.showMessage('Product not found', 'error');
+                // Navigate back to products page if product not found
+                await this.navigateTo('/products', true);
             }
         } catch (error) {
             this.showMessage('Error loading product', 'error');
+            // Navigate back to products page on error
+            await this.navigateTo('/products', true);
         }
     }
 
@@ -568,6 +578,15 @@ class FitStyleApp {
         main.innerHTML = html;
         
         await this.loadProducts();
+    }
+
+    async showAbout() {
+        this.currentView = 'about';
+        this.updateURL('/about');
+        
+        const main = document.querySelector('main');
+        const html = await templateManager.render('about-page');
+        main.innerHTML = html;
     }
 
     async showProfile() {
