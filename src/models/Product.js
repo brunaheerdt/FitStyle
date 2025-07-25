@@ -20,7 +20,14 @@ class Product {
 
     static async getAll() {
         return new Promise((resolve, reject) => {
-            const sql = `SELECT * FROM products ORDER BY created_at DESC`;
+            const sql = `
+                SELECT p.*, 
+                       COUNT(c.id) as comment_count
+                FROM products p 
+                LEFT JOIN comments c ON p.id = c.product_id 
+                GROUP BY p.id 
+                ORDER BY p.created_at DESC
+            `;
             
             db.all(sql, [], (err, rows) => {
                 if (err) {
@@ -82,7 +89,14 @@ class Product {
     static async getWithComments(id) {
         return new Promise(async (resolve, reject) => {
             try {
-                const productSql = `SELECT * FROM products WHERE id = ?`;
+                const productSql = `
+                    SELECT p.*, 
+                           COUNT(c.id) as comment_count
+                    FROM products p 
+                    LEFT JOIN comments c ON p.id = c.product_id 
+                    WHERE p.id = ? 
+                    GROUP BY p.id
+                `;
                 
                 db.get(productSql, [id], async (err, product) => {
                     if (err) {

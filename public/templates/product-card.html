@@ -9,7 +9,7 @@
         {{/if}}
     </div>
     <div class="product-card-content">
-        <h4>{{name}}</h4>
+        <h4><span class="comment-count"><span class="comment-icon">💬</span><span class="comment-number">{{comment_count}}</span></span> {{name}}</h4>
         <p class="product-description">{{truncate description 80}}</p>
         <p class="product-brand"><strong>{{brand}}</strong></p>
         {{#if price}}<p class="product-price">{{price}}</p>{{/if}}
@@ -17,8 +17,6 @@
             {{#if size}}<span class="detail-tag">{{size}}</span>{{/if}}
             {{#if color}}<span class="detail-tag">{{color}}</span>{{/if}}
         </div>
-        <div class="product-actions">
-            <button data-navigate="/product/{{id}}" class="view-details-btn">View Details</button>
-        </div>
+        <button data-navigate="/product/{{id}}" class="view-details-btn">View Details</button>
     </div>
 </div>

@@ -53,7 +53,10 @@
     </div>
     
     <div class="comments-section">
-        <h2>Comments</h2>
+        <h2>
+            <span class="comment-icon">💬</span>
+            Comments ({{comment_count}})
+        </h2>
         <div id="comments-list">
             {{#if comments.length}}
                 {{#each comments}}
