@@ -57,7 +57,7 @@
         <div id="comments-list">
             {{#if comments.length}}
                 {{#each comments}}
-                    {{> comment-item}}
+                    {{> comment-item showReplyBtn=../showReplyBtn}}
                 {{/each}}
             {{else}}
                 <p class="no-comments">No comments yet. Be the first to share your thoughts!</p>

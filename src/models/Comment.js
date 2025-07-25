@@ -47,9 +47,10 @@ class Comment {
                 JOIN users u ON c.user_id = u.id 
                 WHERE c.product_id = ? 
                 ORDER BY 
-                    CASE WHEN c.parent_id IS NULL THEN c.id ELSE c.parent_id END,
+                    CASE WHEN c.parent_id IS NULL THEN c.created_at ELSE 
+                        (SELECT created_at FROM comments WHERE id = c.parent_id) END DESC,
                     c.parent_id IS NULL DESC,
-                    c.created_at ASC
+                    c.created_at DESC
             `;
 
             db.all(sql, [productId], (err, rows) => {
@@ -86,6 +87,17 @@ class Comment {
             }
         });
 
+        // Third pass: sort replies within each comment thread by newest first
+        const sortReplies = (comments) => {
+            comments.forEach(comment => {
+                if (comment.replies.length > 0) {
+                    comment.replies.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                    sortReplies(comment.replies);
+                }
+            });
+        };
+
+        sortReplies(rootComments);
         return rootComments;
     }
 

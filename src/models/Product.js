@@ -80,35 +80,33 @@ class Product {
     }
 
     static async getWithComments(id) {
-        return new Promise((resolve, reject) => {
-            const productSql = `SELECT * FROM products WHERE id = ?`;
-            const commentsSql = `
-                SELECT c.*, u.username 
-                FROM comments c 
-                JOIN users u ON c.user_id = u.id 
-                WHERE c.product_id = ? 
-                ORDER BY c.created_at DESC
-            `;
-            
-            db.get(productSql, [id], (err, product) => {
-                if (err) {
-                    reject(err);
-                    return;
-                }
+        return new Promise(async (resolve, reject) => {
+            try {
+                const productSql = `SELECT * FROM products WHERE id = ?`;
                 
-                if (!product) {
-                    resolve(null);
-                    return;
-                }
-                
-                db.all(commentsSql, [id], (err, comments) => {
+                db.get(productSql, [id], async (err, product) => {
                     if (err) {
                         reject(err);
-                    } else {
+                        return;
+                    }
+                    
+                    if (!product) {
+                        resolve(null);
+                        return;
+                    }
+                    
+                    try {
+                        // Use Comment model to get properly nested comments
+                        const Comment = require('./Comment');
+                        const comments = await Comment.getByProductId(id);
                         resolve({ ...product, comments });
+                    } catch (commentErr) {
+                        reject(commentErr);
                     }
                 });
-            });
+            } catch (error) {
+                reject(error);
+            }
         });
     }
 }

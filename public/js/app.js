@@ -340,6 +340,9 @@ class FitStyleApp {
         
         const main = document.querySelector('main');
         
+        // Clear template cache to ensure fresh templates
+        templateManager.clearCache();
+        
         // Prepare comments data - Handlebars will handle the iteration
         const comments = product.comments || [];
         

@@ -21,7 +21,7 @@
     {{#if replies.length}}
         <div class="comment-replies">
             {{#each replies}}
-                {{> comment-item}}
+                {{> comment-item showReplyBtn=../showReplyBtn}}
             {{/each}}
         </div>
     {{/if}}
